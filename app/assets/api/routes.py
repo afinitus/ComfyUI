@@ -708,7 +708,13 @@ async def upload_asset(request: web.Request) -> web.Response:
         return _reserved_preview_tag()
 
     try:
-        if not parsed.file_present and spec.hash:
+        # The parser accepts an empty 'file' part when a known hash is given;
+        # treat that like a hash-only upload instead of hashing the empty file.
+        hash_only = not parsed.file_present or (
+            parsed.file_written == 0 and parsed.provided_hash_exists
+        )
+        if hash_only and spec.hash:
+            delete_temp_file_if_exists(parsed.tmp_path)
             if not mode.hashing_enabled():
                 return _build_error_response(
                     400, "FEATURE_DISABLED", "Asset hashing is disabled."
