@@ -581,7 +581,7 @@ class CreateHookKeyframesFromFloats:
         elif isinstance(floats_strength, Iterable):
             pass
         else:
-            raise Exception(f"floats_strength must be either an iterable input or a float, but was{type(floats_strength).__repr__}.")
+            raise Exception(f"floats_strength must be either an iterable input or a float, but was {type(floats_strength).__name__}.")
         percents = comfy.hooks.InterpolationMethod.get_weights(num_from=start_percent, num_to=end_percent, length=len(floats_strength),
                                                                method=comfy.hooks.InterpolationMethod.LINEAR)
 
