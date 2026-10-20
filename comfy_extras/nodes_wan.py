@@ -1440,7 +1440,7 @@ class Wan22ImageToVideoLatent(io.ComfyNode):
 
         if start_image is None:
             out_latent = {}
-            out_latent["samples"] = latent
+            out_latent["samples"] = latent.repeat((batch_size, ) + (1,) * (latent.ndim - 1))
             return io.NodeOutput(out_latent)
 
         mask = torch.ones([latent.shape[0], 1, ((length - 1) // 4) + 1, latent.shape[-2], latent.shape[-1]], device=comfy.model_management.intermediate_device())
