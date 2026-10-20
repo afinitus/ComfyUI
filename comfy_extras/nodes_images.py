@@ -863,7 +863,7 @@ class ImageScaleToMaxDimension(IO.ComfyNode):
                 IO.Image.Input("image"),
                 IO.Combo.Input(
                     "upscale_method",
-                    options=["area", "lanczos", "bilinear", "nearest-exact", "bilinear", "bicubic"],
+                    options=["area", "lanczos", "bilinear", "nearest-exact", "bicubic"],
                 ),
                 IO.Int.Input("largest_size", default=512, min=0, max=MAX_RESOLUTION, step=1),
             ],
