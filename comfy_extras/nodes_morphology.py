@@ -48,7 +48,7 @@ class Morphology(io.ComfyNode):
         elif operation == "bottom_hat":
             output = bottom_hat(image_k, kernel)
         else:
-            raise ValueError(f"Invalid operation {operation} for morphology. Must be one of 'erode', 'dilate', 'open', 'close', 'gradient', 'tophat', 'bottomhat'")
+            raise ValueError(f"Invalid operation {operation} for morphology. Must be one of 'erode', 'dilate', 'open', 'close', 'gradient', 'top_hat', 'bottom_hat'")
         img_out = output.to(comfy.model_management.intermediate_device()).movedim(1, -1)
         return io.NodeOutput(img_out)
 
