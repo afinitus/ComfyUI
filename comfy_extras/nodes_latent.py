@@ -509,7 +509,7 @@ class ReplaceVideoLatentFrames(io.ComfyNode):
         source_frames = source["samples"].shape[2]
         if index < 0:
             index = dest_frames + index
-        if index > dest_frames:
+        if index < 0 or index > dest_frames:
             logging.warning(f"ReplaceVideoLatentFrames: Index {index} is out of bounds for destination latent frames {dest_frames}.")
             return io.NodeOutput(destination)
         if index + source_frames > dest_frames:
