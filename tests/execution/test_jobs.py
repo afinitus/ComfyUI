@@ -362,6 +362,20 @@ class TestGetOutputsSummary:
         assert preview['filename'] == 'ComfyUI_00001.txt'
         assert preview['mediaType'] == 'files'
 
+    def test_saved_csv_file_preferred_over_raw_text(self):
+        """SaveText's .csv format gets the same preview as its other formats:
+        the saved file, not the raw text metadata."""
+        outputs = {
+            'save_text': {
+                'text': ['a,b\n1,2'],
+                'files': [{'filename': 'ComfyUI_00001.csv', 'subfolder': '', 'type': 'output'}],
+            },
+        }
+        count, preview = get_outputs_summary(outputs)
+        assert count == 1
+        assert preview['filename'] == 'ComfyUI_00001.csv'
+        assert preview['mediaType'] == 'files'
+
 
 class TestCountPreviewableOutputs:
     """Unit tests for count_previewable_outputs()
@@ -411,6 +425,16 @@ class TestCountPreviewableOutputs:
         outputs = {
             'node1': {
                 'files': [{'filename': 'ComfyUI_00001.txt', 'subfolder': '', 'type': 'output'}]
+            }
+        }
+        assert count_previewable_outputs(outputs) == 1
+
+    def test_save_text_csv_output_is_previewable_by_extension(self):
+        """SaveText can also save .csv, which must be previewable like its
+        other formats."""
+        outputs = {
+            'node1': {
+                'files': [{'filename': 'ComfyUI_00001.csv', 'subfolder': '', 'type': 'output'}]
             }
         }
         assert count_previewable_outputs(outputs) == 1

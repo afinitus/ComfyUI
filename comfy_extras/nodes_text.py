@@ -6,7 +6,7 @@ import folder_paths
 
 
 class SaveTextNode(io.ComfyNode):
-    """Save text content to .txt, .md, or .json."""
+    """Save text content to .txt, .csv, .md, or .json."""
 
     FORMAT_EXTENSIONS = {
         "txt": "txt",

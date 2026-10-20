@@ -57,7 +57,7 @@ PREVIEWABLE_MEDIA_TYPES = frozenset({'images', 'video', 'audio', '3d', 'text'})
 THREE_D_EXTENSIONS = frozenset({'.obj', '.fbx', '.gltf', '.glb', '.usdz'})
 
 # Text file extensions for preview fallback (the formats SaveText can produce)
-TEXT_EXTENSIONS = frozenset({'.txt', '.md', '.json'})
+TEXT_EXTENSIONS = frozenset({'.txt', '.csv', '.md', '.json'})
 
 
 def has_3d_extension(filename: str) -> bool:
@@ -174,8 +174,8 @@ def is_text_preview(media_type: str, item: dict) -> bool:
     """
     Check if a previewable output item is textual rather than visual media.
 
-    Saved text files (SaveText's .txt/.md/.json) are real outputs but must not
-    outrank visual media when picking the job preview.
+    Saved text files (SaveText's .txt/.csv/.md/.json) are real outputs but must
+    not outrank visual media when picking the job preview.
     """
     if media_type == 'text':
         return True
@@ -277,7 +277,7 @@ def get_outputs_summary(outputs: dict) -> tuple[int, Optional[dict]]:
     Preview priority (matching frontend):
     1. type="output" visual media (saved images/video/audio/3d)
     2. any other previewable visual media (e.g. temp/preview images)
-    3. saved text file (e.g. SaveText's .txt/.md/.json)
+    3. saved text file (e.g. SaveText's .txt/.csv/.md/.json)
     4. raw text (only when the job produced nothing else previewable)
 
     Text is kept in its own slots so node/execution order can't let a text
