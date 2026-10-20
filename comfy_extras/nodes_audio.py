@@ -766,7 +766,7 @@ class AudioAdjustVolume(IO.ComfyNode):
                 IO.Audio.Input("audio"),
                 IO.Int.Input(
                     "volume",
-                    default=1,
+                    default=0,
                     min=-100,
                     max=100,
                     tooltip="Volume adjustment in decibels (dB). 0 = no change, +6 = double, -6 = half, etc",
